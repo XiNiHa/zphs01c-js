@@ -1,0 +1,19 @@
+{
+  "name": "zphs01c-js",
+  "type": "module",
+  "main": "dist/index.js",
+  "packageManager": "yarn@3.3.0",
+  "workspaces": [
+    "example"
+  ],
+  "peerDependencies": {
+    "serialport": "10"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.9",
+    "serialport": "^10.5.0",
+    "typescript": "^4.9.3",
+    "vite": "^3.2.4",
+    "vitest": "^0.25.3"
+  }
+}
