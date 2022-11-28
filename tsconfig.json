@@ -4,8 +4,9 @@
     "target": "es2020",
     "module": "NodeNext",
     "outDir": "dist",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "declaration": true
   },
   "include": ["**/*"],
-  "exclude": ["example"]
+  "exclude": ["dist", "example", "**/*.test.*"]
 }

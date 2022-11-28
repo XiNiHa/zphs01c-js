@@ -1,11 +1,24 @@
 {
   "name": "zphs01c-js",
+  "version": "0.0.1",
+  "author": "XiNiHa <me@xiniha.dev>",
+  "repository": "https://github.com/XiNiHa/zphs01c-js",
+  "license": "MIT",
   "type": "module",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "packageManager": "yarn@3.3.0",
   "workspaces": [
     "example"
   ],
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "prepublish": "yarn build",
+    "build": "tsc",
+    "test": "vitest"
+  },
   "peerDependencies": {
     "serialport": "10"
   },
