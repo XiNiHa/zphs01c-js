@@ -8,14 +8,11 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "packageManager": "yarn@3.3.0",
-  "workspaces": [
-    "example"
-  ],
   "files": [
     "dist"
   ],
   "scripts": {
-    "prepublish": "yarn build",
+    "prepublishOnly": "yarn build",
     "build": "tsc",
     "test": "vitest"
   },
