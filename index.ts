@@ -40,24 +40,23 @@ export class ZPHS01C {
     const errorPromise = new Promise<never>((_, reject) =>
       this.#port.once("error", reject)
     );
-    this.#port.emit('data', requestToBuffer({ type: "startStreaming" }));
+    this.#port.write(requestToBuffer({ type: "startStreaming" }));
     let result;
     while (
       (result = await Promise.race([
-        new Promise<Buffer>((resolve) => this.#port.once("data", resolve)),
+        new Promise<Buffer>((resolve) => this.#parser.once("data", resolve)),
         closePromise,
         errorPromise,
       ]))
     ) {
       yield {
         co2: (result[3] << 8) + result[4],
-        voc: (result[5] & 0xf0) >> 4,
-        ch2o: ((result[5] & 0x0f) << 8) + result[6],
+        voc: (result[5] << 8) + result[6],
         humidity: ((result[7] << 8) + result[8]) / 10,
         temperature: (((result[9] << 8) + result[10]) - 500) / 10,
         pm2_5: (result[11] << 8) + result[12],
-        pm10: (result[13] << 8) + result[14],
-        pm1: (result[15] << 8) + result[16],
+        pm10: ((result[13] << 8) + result[14]) || undefined,
+        pm1: ((result[15] << 8) + result[16]) || undefined,
       };
     }
   }
@@ -66,12 +65,11 @@ export class ZPHS01C {
 export interface StreamData {
   co2: number;
   voc: number;
-  ch2o: number;
   humidity: number;
   temperature: number;
   pm2_5: number;
-  pm10: number;
-  pm1: number;
+  pm10: number | undefined;
+  pm1: number | undefined;
 }
 
 type Request =
